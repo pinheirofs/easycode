@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -41,6 +42,9 @@ public class MainFrameSwing extends JFrame implements MainFrame {
         attributeTableMode = new AttributeTableModel();
         final JTable atttributeTable = new JTable(attributeTableMode);
         final JScrollPane scrollPane = new JScrollPane(atttributeTable);
+        final JButton addAttributeButton = new JButton(translate.tr("MainFrameSwing.attribute.button.add"));
+        final JButton removeAttributeButton = new JButton(translate.tr("MainFrameSwing.attribute.button.remove"));
+        final JButton createButton = new JButton(translate.tr("MainFrameSwing.create.button"));
 
         final Container contentPane = getContentPane();
         final GroupLayout layout = new GroupLayout(contentPane);
@@ -57,7 +61,12 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                                 .addGroup(layout.createParallelGroup() //
                                         .addComponent(projectTextField) //
                                         .addComponent(classTextField))) //
-                        .addComponent(scrollPane) //
+                        .addGroup(layout.createSequentialGroup() //
+                                .addComponent(scrollPane) //
+                                .addGroup(layout.createParallelGroup() //
+                                        .addComponent(addAttributeButton) //
+                                        .addComponent(removeAttributeButton))) //
+                        .addComponent(createButton, Alignment.TRAILING) //
 
         );
 
@@ -70,7 +79,12 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                                 .addComponent(classLabel) //
                                 .addComponent(classTextField)) //
                         .addComponent(attributeLabel) //
-                        .addComponent(scrollPane) //
+                        .addGroup(layout.createParallelGroup() //
+                                .addComponent(scrollPane) //
+                                .addGroup(layout.createSequentialGroup() //
+                                        .addComponent(addAttributeButton) //
+                                        .addComponent(removeAttributeButton))) //
+                        .addComponent(createButton) //
         );
 
     }
