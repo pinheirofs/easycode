@@ -15,4 +15,9 @@ public class MainFrameCtrl {
         mainframe.showFrame();
     }
 
+    public void createEntity() {
+        // TODO Auto-generated method stub
+
+    }
+
 }

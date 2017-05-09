@@ -2,6 +2,8 @@ package com.s2.easycode.mainframe;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
 
 import com.s2.easycode.Translate;
@@ -25,8 +28,11 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     private JTextField projectTextField;
     private JTextField classTextField;
     private AttributeTableModel attributeTableMode;
+    private final MainFrameCtrl mainFrameCtrl;
+    private JTable atttributeTable;
 
     public MainFrameSwing(final MainFrameCtrl mainFrameCtrl) {
+        this.mainFrameCtrl = mainFrameCtrl;
         config();
         buildLayout();
     }
@@ -40,11 +46,33 @@ public class MainFrameSwing extends JFrame implements MainFrame {
         projectTextField = new JTextField();
         classTextField = new JTextField();
         attributeTableMode = new AttributeTableModel();
-        final JTable atttributeTable = new JTable(attributeTableMode);
+        atttributeTable = new JTable(attributeTableMode);
+        atttributeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         final JScrollPane scrollPane = new JScrollPane(atttributeTable);
         final JButton addAttributeButton = new JButton(translate.tr("MainFrameSwing.attribute.button.add"));
+        addAttributeButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                addNewAttributeLine();
+            }
+        });
         final JButton removeAttributeButton = new JButton(translate.tr("MainFrameSwing.attribute.button.remove"));
+        removeAttributeButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                removeAttributeLine();
+            }
+        });
         final JButton createButton = new JButton(translate.tr("MainFrameSwing.create.button"));
+        createButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                mainFrameCtrl.createEntity();
+            }
+        });
 
         final Container contentPane = getContentPane();
         final GroupLayout layout = new GroupLayout(contentPane);
@@ -89,6 +117,15 @@ public class MainFrameSwing extends JFrame implements MainFrame {
 
     }
 
+    protected void removeAttributeLine() {
+        final int selectedRow = atttributeTable.getSelectedRow();
+        attributeTableMode.removeLine(selectedRow);
+    }
+
+    protected void addNewAttributeLine() {
+        attributeTableMode.addLine();
+    }
+
     private void config() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -117,6 +154,17 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                     translate.tr("MainFrameSwing.attribute.tablecolumn.type") };
         }
 
+        public void addLine() {
+            values.add(new String[2]);
+            fireTableRowsInserted(0, values.size() - 1);
+
+        }
+
+        public void removeLine(final int rowIndex) {
+            values.remove(rowIndex);
+            fireTableRowsDeleted(rowIndex, rowIndex);
+        }
+
         @Override
         public int getRowCount() {
             return values.size();
@@ -138,5 +186,17 @@ public class MainFrameSwing extends JFrame implements MainFrame {
             return line[columnIndex];
         }
 
+        @Override
+        public boolean isCellEditable(final int rowIndex, final int columnIndex) {
+            return true;
+        }
+
+        @Override
+        public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
+            final String[] line = values.get(rowIndex);
+            line[columnIndex] = aValue.toString();
+
+            fireTableCellUpdated(rowIndex, columnIndex);
+        }
     }
 }
