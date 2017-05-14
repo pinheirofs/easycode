@@ -22,12 +22,18 @@
   	<module>easycode-app-swing</module>
   	<module>easycode-ctrl</module>
   	<module>easycode-ui-swing</module>
+  	<module>easycode-source-generator</module>
   </modules>
   <dependencies>
   	<dependency>
   		<groupId>org.slf4j</groupId>
   		<artifactId>slf4j-log4j12</artifactId>
   		<version>1.7.21</version>
+  	</dependency>
+  	<dependency>
+  		<groupId>junit</groupId>
+  		<artifactId>junit</artifactId>
+  		<version>4.12</version>
   	</dependency>
   </dependencies>
 </project>

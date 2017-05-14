@@ -26,6 +26,7 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     private static final int FRAME_WIDTH = 800;
     private static final long serialVersionUID = -96244502747449961L;
     private JTextField projectTextField;
+    private JTextField pathTextField;
     private JTextField classTextField;
     private AttributeTableModel attributeTableMode;
     private final MainFrameCtrl mainFrameCtrl;
@@ -41,9 +42,11 @@ public class MainFrameSwing extends JFrame implements MainFrame {
 
         final Translate translate = Translate.getInstance();
         final JLabel projectLabel = new JLabel(translate.tr("MainFrameSwing.project.label"));
+        final JLabel pathLabel = new JLabel(translate.tr("MainFrameSwing.path.label"));
         final JLabel classLabel = new JLabel(translate.tr("MainFrameSwing.class.label"));
         final JLabel attributeLabel = new JLabel(translate.tr("MainFrameSwing.attribute.label"));
         projectTextField = new JTextField();
+        pathTextField = new JTextField();
         classTextField = new JTextField();
         attributeTableMode = new AttributeTableModel();
         atttributeTable = new JTable(attributeTableMode);
@@ -84,10 +87,12 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                         .addGroup(layout.createSequentialGroup() //
                                 .addGroup(layout.createParallelGroup() //
                                         .addComponent(projectLabel) //
+                                        .addComponent(pathLabel) //
                                         .addComponent(classLabel) //
                                         .addComponent(attributeLabel)) //
                                 .addGroup(layout.createParallelGroup() //
                                         .addComponent(projectTextField) //
+                                        .addComponent(pathTextField) //
                                         .addComponent(classTextField))) //
                         .addGroup(layout.createSequentialGroup() //
                                 .addComponent(scrollPane) //
@@ -103,6 +108,9 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
                                 .addComponent(projectLabel) //
                                 .addComponent(projectTextField)) //
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
+                                .addComponent(pathLabel) //
+                                .addComponent(pathTextField)) //
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
                                 .addComponent(classLabel) //
                                 .addComponent(classTextField)) //
@@ -198,5 +206,59 @@ public class MainFrameSwing extends JFrame implements MainFrame {
 
             fireTableCellUpdated(rowIndex, columnIndex);
         }
+    }
+
+    @Override
+    public String getProjectName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public String getEntityName() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public List<String[]> getAttributes() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void showProjectNameErrorMsg() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void showEntityClassNameErrorMsg() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void showEntityArttributeErrorMsg() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public String getProjectPath() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public void showProjectPathErrorMsg() {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void showUndefineErrorMsg() {
+        // TODO Auto-generated method stub
+
     }
 }

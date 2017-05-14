@@ -5,12 +5,5 @@
     <artifactId>easycode</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>easycode-ctrl</artifactId>
-  <dependencies>
-  	<dependency>
-  		<groupId>com.s2.easycode</groupId>
-  		<artifactId>easycode-source-generator</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  </dependencies>
+  <artifactId>easycode-source-generator</artifactId>
 </project>
