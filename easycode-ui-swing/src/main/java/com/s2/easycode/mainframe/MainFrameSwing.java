@@ -12,6 +12,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -25,9 +26,9 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     private static final int FRAME_HEIGHT = 600;
     private static final int FRAME_WIDTH = 800;
     private static final long serialVersionUID = -96244502747449961L;
-    private JTextField projectTextField;
-    private JTextField pathTextField;
-    private JTextField classTextField;
+    private JTextField projectNameTextField;
+    private JTextField projectPathTextField;
+    private JTextField classNameTextField;
     private AttributeTableModel attributeTableMode;
     private final MainFrameCtrl mainFrameCtrl;
     private JTable atttributeTable;
@@ -45,9 +46,9 @@ public class MainFrameSwing extends JFrame implements MainFrame {
         final JLabel pathLabel = new JLabel(translate.tr("MainFrameSwing.path.label"));
         final JLabel classLabel = new JLabel(translate.tr("MainFrameSwing.class.label"));
         final JLabel attributeLabel = new JLabel(translate.tr("MainFrameSwing.attribute.label"));
-        projectTextField = new JTextField();
-        pathTextField = new JTextField();
-        classTextField = new JTextField();
+        projectNameTextField = new JTextField();
+        projectPathTextField = new JTextField();
+        classNameTextField = new JTextField();
         attributeTableMode = new AttributeTableModel();
         atttributeTable = new JTable(attributeTableMode);
         atttributeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -91,9 +92,9 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                                         .addComponent(classLabel) //
                                         .addComponent(attributeLabel)) //
                                 .addGroup(layout.createParallelGroup() //
-                                        .addComponent(projectTextField) //
-                                        .addComponent(pathTextField) //
-                                        .addComponent(classTextField))) //
+                                        .addComponent(projectNameTextField) //
+                                        .addComponent(projectPathTextField) //
+                                        .addComponent(classNameTextField))) //
                         .addGroup(layout.createSequentialGroup() //
                                 .addComponent(scrollPane) //
                                 .addGroup(layout.createParallelGroup() //
@@ -107,13 +108,13 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                 layout.createSequentialGroup() //
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
                                 .addComponent(projectLabel) //
-                                .addComponent(projectTextField)) //
+                                .addComponent(projectNameTextField)) //
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
                                 .addComponent(pathLabel) //
-                                .addComponent(pathTextField)) //
+                                .addComponent(projectPathTextField)) //
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
                                 .addComponent(classLabel) //
-                                .addComponent(classTextField)) //
+                                .addComponent(classNameTextField)) //
                         .addComponent(attributeLabel) //
                         .addGroup(layout.createParallelGroup() //
                                 .addComponent(scrollPane) //
@@ -206,59 +207,69 @@ public class MainFrameSwing extends JFrame implements MainFrame {
 
             fireTableCellUpdated(rowIndex, columnIndex);
         }
+
+        public List<String[]> getValues() {
+            return new ArrayList<>(values);
+        }
     }
 
     @Override
     public String getProjectName() {
-        // TODO Auto-generated method stub
-        return null;
+        return projectNameTextField.getText();
     }
 
     @Override
     public String getEntityName() {
-        // TODO Auto-generated method stub
-        return null;
+        return classNameTextField.getText();
     }
 
     @Override
     public List<String[]> getAttributes() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void showProjectNameErrorMsg() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void showEntityClassNameErrorMsg() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void showEntityArttributeErrorMsg() {
-        // TODO Auto-generated method stub
-
+        return attributeTableMode.getValues();
     }
 
     @Override
     public String getProjectPath() {
-        // TODO Auto-generated method stub
-        return null;
+        return projectPathTextField.getText();
+    }
+
+    @Override
+    public void showProjectNameErrorMsg() {
+        final Translate translate = Translate.getInstance();
+        final String message = translate.tr("MainFrameSwing.error.title");
+        final String title = translate.tr("MainFrameSwing.error.project.name");
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void showEntityClassNameErrorMsg() {
+        final Translate translate = Translate.getInstance();
+        final String message = translate.tr("MainFrameSwing.error.title");
+        final String title = translate.tr("MainFrameSwing.error.entity.class");
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void showEntityArttributeErrorMsg() {
+        final Translate translate = Translate.getInstance();
+        final String message = translate.tr("MainFrameSwing.error.title");
+        final String title = translate.tr("MainFrameSwing.error.entity.arrtibute");
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public void showProjectPathErrorMsg() {
-        // TODO Auto-generated method stub
-
+        final Translate translate = Translate.getInstance();
+        final String message = translate.tr("MainFrameSwing.error.title");
+        final String title = translate.tr("MainFrameSwing.error.project.path");
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
     @Override
     public void showUndefineErrorMsg() {
-        // TODO Auto-generated method stub
-
+        final Translate translate = Translate.getInstance();
+        final String message = translate.tr("MainFrameSwing.error.title");
+        final String title = translate.tr("");
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 }
