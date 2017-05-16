@@ -37,12 +37,12 @@ public class MainFrameCtrl {
         final String projectName = mainFrame.getProjectName();
         final String projectPath = mainFrame.getProjectPath();
         final ProjectDescription projectDescription = new ProjectDescription();
-        projectDescription.setProjectName(projectName);
-        projectDescription.setProjectPath(projectPath);
+        projectDescription.setName(projectName);
+        projectDescription.setPath(projectPath);
         if (!projectValidatorService.validate(projectDescription)) {
             for (final ErrorType error : projectValidatorService.getErrors()) {
                 switch (error) {
-                case PROJEC_NAME_ERROR:
+                case PROJECT_NAME_ERROR:
                     mainFrame.showProjectNameErrorMsg();
                     break;
                 case PROJECT_PATH_ERROR:

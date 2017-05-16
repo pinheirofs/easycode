@@ -16,7 +16,7 @@ public class ProjectValidatorServiceAdapter implements ProjectValidatorService {
 
     @Override
     public List<ErrorType> getErrors() {
-        return Arrays.asList(ErrorType.PROJECT_PATH_ERROR, ErrorType.PROJEC_NAME_ERROR);
+        return Arrays.asList(ErrorType.PROJECT_PATH_ERROR, ErrorType.PROJECT_NAME_ERROR);
     }
 
 }

@@ -2,14 +2,23 @@ package com.s2.easycode.sourcegenerator;
 
 public class ProjectDescription {
 
-    public void setProjectName(final String projectName) {
-        // TODO Auto-generated method stub
+    private String name;
+    private String path;
 
+    public void setName(final String name) {
+        this.name = name;
     }
 
-    public void setProjectPath(final String projectPath) {
-        // TODO Auto-generated method stub
+    public void setPath(final String path) {
+        this.path = path;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getPath() {
+        return path;
     }
 
 }
