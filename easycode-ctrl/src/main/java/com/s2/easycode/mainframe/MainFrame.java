@@ -20,7 +20,9 @@ public interface MainFrame {
 
     void showEntityClassNameErrorMsg();
 
-    void showEntityArttributeErrorMsg();
+    void showEntityArttributeNameErrorMsg();
+
+    void showEntityArttributeTypeErrorMsg();
 
     void showUndefineErrorMsg();
 

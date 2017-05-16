@@ -250,10 +250,18 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     }
 
     @Override
-    public void showEntityArttributeErrorMsg() {
+    public void showEntityArttributeNameErrorMsg() {
         final Translate translate = Translate.getInstance();
         final String message = translate.tr("MainFrameSwing.error.title");
-        final String title = translate.tr("MainFrameSwing.error.entity.arrtibute");
+        final String title = translate.tr("MainFrameSwing.error.entity.arrtibute.name");
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void showEntityArttributeTypeErrorMsg() {
+        final Translate translate = Translate.getInstance();
+        final String message = translate.tr("MainFrameSwing.error.title");
+        final String title = translate.tr("MainFrameSwing.error.entity.arrtibute.type");
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 

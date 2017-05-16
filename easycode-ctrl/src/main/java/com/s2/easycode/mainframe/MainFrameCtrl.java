@@ -68,8 +68,11 @@ public class MainFrameCtrl {
                 case ENTITY_CLASS_NAME_ERROR:
                     mainFrame.showEntityClassNameErrorMsg();
                     break;
-                case ENTITY_ATTRIBUTE_ERROR:
-                    mainFrame.showEntityArttributeErrorMsg();
+                case ENTITY_ATTRIBUTE_NAME_ERROR:
+                    mainFrame.showEntityArttributeNameErrorMsg();
+                    break;
+                case ENTITY_ATTRIBUTE_TYPE_ERROR:
+                    mainFrame.showEntityArttributeTypeErrorMsg();
                     break;
                 default:
                     mainFrame.showUndefineErrorMsg();

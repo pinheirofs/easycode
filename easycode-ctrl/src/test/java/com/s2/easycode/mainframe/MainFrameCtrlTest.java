@@ -37,7 +37,7 @@ public class MainFrameCtrlTest {
         final UiFactoryAdapter uiFactory = new UiFactoryAdapter();
         uiFactory.setMainFrameAdapter(new MainFrameAdapter() {
             @Override
-            public void showEntityArttributeErrorMsg() {
+            public void showEntityArttributeNameErrorMsg() {
                 showEntityArttribute = true;
             }
 

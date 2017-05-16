@@ -42,7 +42,11 @@ public class MainFrameAdapter implements MainFrame {
     }
 
     @Override
-    public void showEntityArttributeErrorMsg() {
+    public void showEntityArttributeNameErrorMsg() {
+    }
+
+    @Override
+    public void showEntityArttributeTypeErrorMsg() {
     }
 
     @Override
