@@ -1,6 +1,7 @@
 package com.s2.easycode.mainframe;
 
 import com.s2.easycode.UiFactoryAbstract;
+import com.s2.easycode.sourcegenerator.AttributeType;
 import com.s2.easycode.sourcegenerator.EntityDescription;
 import com.s2.easycode.sourcegenerator.EntityGeneratorService;
 import com.s2.easycode.sourcegenerator.ProjectDescription;
@@ -58,16 +59,16 @@ public class MainFrameCtrl {
         final EntityDescription entityDescription = new EntityDescription();
         entityDescription.setName(mainFrame.getEntityName());
         for (final String[] attribue : mainFrame.getAttributes()) {
-            entityDescription.addAttrubute(attribue[0], attribue[1]);
+            entityDescription.addAttrubute(attribue[0], AttributeType.convert(attribue[1]));
         }
 
         if (!entityValidatorService.validate(entityDescription)) {
             for (final ErrorType error : entityValidatorService.getErrors()) {
                 switch (error) {
-                case CLASS_NAME_ERROR:
+                case ENTITY_CLASS_NAME_ERROR:
                     mainFrame.showEntityClassNameErrorMsg();
                     break;
-                case ATTRIBUTE_ERROR:
+                case ENTITY_ATTRIBUTE_ERROR:
                     mainFrame.showEntityArttributeErrorMsg();
                     break;
                 default:

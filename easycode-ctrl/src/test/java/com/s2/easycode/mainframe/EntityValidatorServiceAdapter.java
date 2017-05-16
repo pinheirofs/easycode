@@ -16,7 +16,7 @@ public class EntityValidatorServiceAdapter implements EntityValidatorService {
 
     @Override
     public List<ErrorType> getErrors() {
-        return Arrays.asList(ErrorType.ATTRIBUTE_ERROR, ErrorType.CLASS_NAME_ERROR);
+        return Arrays.asList(ErrorType.ENTITY_ATTRIBUTE_ERROR, ErrorType.ENTITY_CLASS_NAME_ERROR);
     }
 
 }
