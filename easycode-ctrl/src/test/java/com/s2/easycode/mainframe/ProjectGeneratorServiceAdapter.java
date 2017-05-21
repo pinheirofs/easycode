@@ -6,7 +6,11 @@ import com.s2.easycode.sourcegenerator.ProjectGeneratorService;
 public class ProjectGeneratorServiceAdapter implements ProjectGeneratorService {
 
     @Override
-    public void generate(final ProjectDescription projectDescription) {
+    public void generate() {
+    }
+
+    @Override
+    public void setProjectDescription(final ProjectDescription projectDescription) {
     }
 
 }

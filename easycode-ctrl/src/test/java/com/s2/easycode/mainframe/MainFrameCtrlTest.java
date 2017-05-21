@@ -85,7 +85,7 @@ public class MainFrameCtrlTest {
         };
         final ProjectGeneratorService projectGeneratorService = new ProjectGeneratorServiceAdapter() {
             @Override
-            public void generate(final ProjectDescription projectDescription) {
+            public void generate() {
                 generateProject = true;
             }
         };
@@ -129,7 +129,7 @@ public class MainFrameCtrlTest {
         };
         final ProjectGeneratorService projectGeneratorService = new ProjectGeneratorServiceAdapter() {
             @Override
-            public void generate(final ProjectDescription projectDescription) {
+            public void generate() {
                 Assert.fail();
             }
         };
@@ -174,7 +174,7 @@ public class MainFrameCtrlTest {
         };
         final ProjectGeneratorService projectGeneratorService = new ProjectGeneratorServiceAdapter() {
             @Override
-            public void generate(final ProjectDescription projectDescription) {
+            public void generate() {
                 Assert.fail();
             }
         };

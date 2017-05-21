@@ -1,5 +1,7 @@
 package com.s2.easycode.mainframe;
 
+import java.io.IOException;
+
 import com.s2.easycode.UiFactoryAbstract;
 import com.s2.easycode.sourcegenerator.AttributeType;
 import com.s2.easycode.sourcegenerator.EntityDescription;
@@ -82,8 +84,14 @@ public class MainFrameCtrl {
             return;
         }
 
-        projectGeneratorService.generate(projectDescription);
+        projectGeneratorService.setProjectDescription(projectDescription);
+        try {
+            projectGeneratorService.generate();
+        } catch (final IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
         entityGeneratorService.generate(entityDescription);
     }
-
 }
