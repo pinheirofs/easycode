@@ -87,22 +87,22 @@ public class ProjectGeneratorServiceImplTest {
         pomReader.close();
 
         // Verificar a criacao do subdiretorio src/main/java
-        final File srcMainJavaDirectory = new File(projectFilepath + SRC_MAIN_JAVA_DIRECTORY);
+        final File srcMainJavaDirectory = new File(projectFilepath + File.separator + SRC_MAIN_JAVA_DIRECTORY);
         Assert.assertTrue(srcMainJavaDirectory.exists());
         Assert.assertTrue(srcMainJavaDirectory.isDirectory());
 
         // Verificar a criacao do subdiretorio src/main/resource
-        final File srcMainResourceDirectory = new File(projectFilepath + SRC_MAIN_RESOURCE_DIRECTORY);
+        final File srcMainResourceDirectory = new File(projectFilepath + File.separator + SRC_MAIN_RESOURCE_DIRECTORY);
         Assert.assertTrue(srcMainResourceDirectory.exists());
         Assert.assertTrue(srcMainResourceDirectory.isDirectory());
 
         // adicionar o teste para o subdiretorio src/test/java
-        final File srcTestJavaDirectory = new File(projectFilepath + SRC_TEST_JAVA_DIRECTORY);
+        final File srcTestJavaDirectory = new File(projectFilepath + File.separator + SRC_TEST_JAVA_DIRECTORY);
         Assert.assertTrue(srcTestJavaDirectory.exists());
         Assert.assertTrue(srcTestJavaDirectory.isDirectory());
 
         // adicionar o teste para o subdiretorio src/test/resource
-        final File srcTestResourceDirectory = new File(projectFilepath + SRC_TEST_RESOURCE_DIRECTORY);
+        final File srcTestResourceDirectory = new File(projectFilepath + File.separator + SRC_TEST_RESOURCE_DIRECTORY);
         Assert.assertTrue(srcTestResourceDirectory.exists());
         Assert.assertTrue(srcTestResourceDirectory.isDirectory());
     }

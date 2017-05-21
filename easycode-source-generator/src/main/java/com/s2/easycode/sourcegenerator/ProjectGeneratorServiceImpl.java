@@ -9,8 +9,11 @@ import java.io.OutputStreamWriter;
 
 public class ProjectGeneratorServiceImpl implements ProjectGeneratorService {
 
+    private static final String SRC_TEST_RESOURCE_DIRECOTRY = "src/test/resource/";
+    private static final String SRC_TEST_JAVA_DIRECTORY = "src/test/java/";
+    private static final String SRC_MAIN_RESOURCE_DIRECTORY = "src/main/resource/";
+    private static final String SRC_MAIN_JAVA_DIRECTORY = "src/main/java/";
     private static final String POM_FILE_XML = "pom.xml";
-
     private static final String PROJECT_VERSION = "0.0.1-SNAPSHOT";
 
     ProjectDescription projectDescription;
@@ -22,6 +25,32 @@ public class ProjectGeneratorServiceImpl implements ProjectGeneratorService {
         }
 
         createPomFile();
+
+        createDirectories();
+    }
+
+    private void createDirectories() {
+        final String projectDirectory = assemblyProjectDirectory();
+
+        final File mainJavaDirectory = new File(projectDirectory + SRC_MAIN_JAVA_DIRECTORY);
+        if (!mainJavaDirectory.mkdirs()) {
+            return;
+        }
+
+        final File mainResourceDirectory = new File(projectDirectory + SRC_MAIN_RESOURCE_DIRECTORY);
+        if (!mainResourceDirectory.mkdirs()) {
+            return;
+        }
+
+        final File testJavaDirectory = new File(projectDirectory + SRC_TEST_JAVA_DIRECTORY);
+        if (!testJavaDirectory.mkdirs()) {
+            return;
+        }
+
+        final File testResourceDirectory = new File(projectDirectory + SRC_TEST_RESOURCE_DIRECOTRY);
+        if (!testResourceDirectory.mkdirs()) {
+            return;
+        }
     }
 
     private void createPomFile() throws IOException {
