@@ -24,4 +24,35 @@ public enum AttributeType {
 
         return type;
     }
+
+    public String getJavaType() {
+        String javaType;
+        switch (this) {
+        case INTEGER:
+            javaType = Integer.class.getName();
+            break;
+        case LONG:
+            javaType = Long.class.getName();
+            break;
+        case FLOAT:
+            javaType = Float.class.getName();
+            break;
+        case DOUBLE:
+            javaType = Double.class.getName();
+            break;
+        case CHARACTER:
+            javaType = Character.class.getName();
+            break;
+        case STRING:
+            javaType = String.class.getName();
+            break;
+        case BOOLEAN:
+            javaType = Boolean.class.getName();
+        default:
+            javaType = null;
+            break;
+        }
+
+        return javaType;
+    }
 }

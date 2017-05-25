@@ -79,7 +79,7 @@ public class MainFrameCtrlTest {
 
         final EntityGeneratorService entityGeneratorService = new EntityGeneratorServiceAdapter() {
             @Override
-            public void generate(final EntityDescription entityDescription) {
+            public void generate() {
                 generateEntity = true;
             }
         };
@@ -123,7 +123,7 @@ public class MainFrameCtrlTest {
 
         final EntityGeneratorService entityGeneratorService = new EntityGeneratorServiceAdapter() {
             @Override
-            public void generate(final EntityDescription entityDescription) {
+            public void generate() {
                 Assert.fail();
             }
         };
@@ -168,7 +168,7 @@ public class MainFrameCtrlTest {
 
         final EntityGeneratorService entityGeneratorService = new EntityGeneratorServiceAdapter() {
             @Override
-            public void generate(final EntityDescription entityDescription) {
+            public void generate() {
                 Assert.fail();
             }
         };

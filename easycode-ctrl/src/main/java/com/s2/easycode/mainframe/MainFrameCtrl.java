@@ -92,6 +92,13 @@ public class MainFrameCtrl {
             e.printStackTrace();
         }
 
-        entityGeneratorService.generate(entityDescription);
+        entityGeneratorService.setProjectDescription(projectDescription);
+        entityGeneratorService.setEntityDescription(entityDescription);
+        try {
+            entityGeneratorService.generate();
+        } catch (final IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 }
