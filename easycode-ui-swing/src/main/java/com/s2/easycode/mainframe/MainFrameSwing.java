@@ -27,6 +27,7 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     private static final int FRAME_WIDTH = 800;
     private static final long serialVersionUID = -96244502747449961L;
     private JTextField projectNameTextField;
+    private JTextField projectGroupTextField;
     private JTextField projectPathTextField;
     private JTextField classNameTextField;
     private AttributeTableModel attributeTableMode;
@@ -42,11 +43,13 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     private void buildLayout() {
 
         final Translate translate = Translate.getInstance();
-        final JLabel projectLabel = new JLabel(translate.tr("MainFrameSwing.project.label"));
-        final JLabel pathLabel = new JLabel(translate.tr("MainFrameSwing.path.label"));
+        final JLabel projectNameLabel = new JLabel(translate.tr("MainFrameSwing.project.name.label"));
+        final JLabel projectGroupLabel = new JLabel(translate.tr("MainFrameSwing.project.group.label"));
+        final JLabel projectPathLabel = new JLabel(translate.tr("MainFrameSwing.path.label"));
         final JLabel classLabel = new JLabel(translate.tr("MainFrameSwing.class.label"));
         final JLabel attributeLabel = new JLabel(translate.tr("MainFrameSwing.attribute.label"));
         projectNameTextField = new JTextField();
+        projectGroupTextField = new JTextField();
         projectPathTextField = new JTextField();
         classNameTextField = new JTextField();
         attributeTableMode = new AttributeTableModel();
@@ -87,12 +90,14 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                 layout.createParallelGroup() //
                         .addGroup(layout.createSequentialGroup() //
                                 .addGroup(layout.createParallelGroup() //
-                                        .addComponent(projectLabel) //
-                                        .addComponent(pathLabel) //
+                                        .addComponent(projectNameLabel) //
+                                        .addComponent(projectGroupLabel) //
+                                        .addComponent(projectPathLabel) //
                                         .addComponent(classLabel) //
                                         .addComponent(attributeLabel)) //
                                 .addGroup(layout.createParallelGroup() //
                                         .addComponent(projectNameTextField) //
+                                        .addComponent(projectGroupTextField) //
                                         .addComponent(projectPathTextField) //
                                         .addComponent(classNameTextField))) //
                         .addGroup(layout.createSequentialGroup() //
@@ -107,10 +112,13 @@ public class MainFrameSwing extends JFrame implements MainFrame {
         layout.setVerticalGroup( //
                 layout.createSequentialGroup() //
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
-                                .addComponent(projectLabel) //
+                                .addComponent(projectNameLabel) //
                                 .addComponent(projectNameTextField)) //
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
-                                .addComponent(pathLabel) //
+                                .addComponent(projectGroupLabel) //
+                                .addComponent(projectGroupTextField)) //
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
+                                .addComponent(projectPathLabel) //
                                 .addComponent(projectPathTextField)) //
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
                                 .addComponent(classLabel) //
@@ -219,6 +227,11 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     }
 
     @Override
+    public String getProjectGroup() {
+        return projectGroupTextField.getText();
+    }
+
+    @Override
     public String getEntityName() {
         return classNameTextField.getText();
     }
@@ -270,6 +283,14 @@ public class MainFrameSwing extends JFrame implements MainFrame {
         final Translate translate = Translate.getInstance();
         final String message = translate.tr("MainFrameSwing.error.title");
         final String title = translate.tr("MainFrameSwing.error.project.path");
+        JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    @Override
+    public void showProjectGroupErrorMsg() {
+        final Translate translate = Translate.getInstance();
+        final String message = translate.tr("MainFrameSwing.error.title");
+        final String title = translate.tr("MainFrameSwing.error.project.group");
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 

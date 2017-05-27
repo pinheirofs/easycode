@@ -15,6 +15,11 @@ public class MainFrameAdapter implements MainFrame {
     }
 
     @Override
+    public String getProjectGroup() {
+        return "";
+    }
+
+    @Override
     public String getProjectPath() {
         return "";
     }
@@ -51,6 +56,10 @@ public class MainFrameAdapter implements MainFrame {
 
     @Override
     public void showUndefineErrorMsg() {
+    }
+
+    @Override
+    public void showProjectGroupErrorMsg() {
     }
 
 }

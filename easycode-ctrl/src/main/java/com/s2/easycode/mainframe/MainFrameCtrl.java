@@ -37,15 +37,20 @@ public class MainFrameCtrl {
 
     public void createEntity() {
         final String projectName = mainFrame.getProjectName();
+        final String projectGroup = mainFrame.getProjectGroup();
         final String projectPath = mainFrame.getProjectPath();
         final ProjectDescription projectDescription = new ProjectDescription();
         projectDescription.setName(projectName);
+        projectDescription.setGroup(projectGroup);
         projectDescription.setPath(projectPath);
         if (!projectValidatorService.validate(projectDescription)) {
             for (final ErrorType error : projectValidatorService.getErrors()) {
                 switch (error) {
                 case PROJECT_NAME_ERROR:
                     mainFrame.showProjectNameErrorMsg();
+                    break;
+                case PROJECT_GROUP_ERROR:
+                    mainFrame.showProjectGroupErrorMsg();
                     break;
                 case PROJECT_PATH_ERROR:
                     mainFrame.showProjectPathErrorMsg();

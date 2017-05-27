@@ -8,6 +8,8 @@ public interface MainFrame {
 
     String getProjectName();
 
+    String getProjectGroup();
+
     String getProjectPath();
 
     String getEntityName();
@@ -17,6 +19,8 @@ public interface MainFrame {
     void showProjectNameErrorMsg();
 
     void showProjectPathErrorMsg();
+
+    void showProjectGroupErrorMsg();
 
     void showEntityClassNameErrorMsg();
 

@@ -16,25 +16,33 @@ public class ProjectValidatorServiceImpl implements ProjectValidatorService {
 
     @Override
     public boolean validate(final ProjectDescription projectDescription) {
+        boolean valid = true;
+
         final String name = projectDescription.getName();
         if (name == null || name.isEmpty()) {
             errors.add(ErrorType.PROJECT_NAME_ERROR);
-            return false;
+            valid = false;
+        }
+
+        final String group = projectDescription.getGroup();
+        if (group == null || group.isEmpty()) {
+            errors.add(ErrorType.PROJECT_GROUP_ERROR);
+            valid = false;
         }
 
         final String path = projectDescription.getPath();
         if (path == null || path.isEmpty()) {
             errors.add(ErrorType.PROJECT_PATH_ERROR);
-            return false;
+            valid = false;
+        } else {
+            final File filepath = new File(path);
+            if (filepath.isFile() || !filepath.canWrite()) {
+                errors.add(ErrorType.PROJECT_PATH_ERROR);
+                valid = false;
+            }
         }
 
-        final File filepath = new File(path);
-        if (filepath.isFile() || !filepath.canWrite()) {
-            errors.add(ErrorType.PROJECT_PATH_ERROR);
-            return false;
-        }
-
-        return true;
+        return valid;
     }
 
     @Override

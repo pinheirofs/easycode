@@ -70,8 +70,9 @@ public class ProjectGeneratorServiceImpl implements ProjectGeneratorService {
         reader.close();
 
         final String name = projectDescription.getName();
+        final String group = projectDescription.getGroup();
 
-        final String formatedFileContent = String.format(fileContent.toString(), name, PROJECT_VERSION, "");
+        final String formatedFileContent = String.format(fileContent.toString(), name, group, PROJECT_VERSION, "");
 
         final FileOutputStream outputStream = new FileOutputStream(pomFile);
         final OutputStreamWriter writer = new OutputStreamWriter(outputStream);

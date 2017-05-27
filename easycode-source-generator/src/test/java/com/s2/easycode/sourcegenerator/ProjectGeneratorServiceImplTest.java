@@ -20,6 +20,7 @@ public class ProjectGeneratorServiceImplTest {
     private static final String POM_FILE_NAME = "pom.xml";
     private static final String DEFAULT_PROJECT_PATH = "/tmp/";
     private static final String DEFAULT_PROJECT_NAME = "project";
+    private static final String DEFAULT_PROJECT_GROUP = "group";
 
     @Before
     public void prepareTestExecution() throws InterruptedException {
@@ -47,6 +48,7 @@ public class ProjectGeneratorServiceImplTest {
     public void generateOk() throws IOException {
         final ProjectDescription projectDescription = new ProjectDescription();
         projectDescription.setName(DEFAULT_PROJECT_NAME);
+        projectDescription.setGroup(DEFAULT_PROJECT_GROUP);
         projectDescription.setPath(DEFAULT_PROJECT_PATH);
 
         final ProjectGeneratorService service = new ProjectGeneratorServiceImpl();
