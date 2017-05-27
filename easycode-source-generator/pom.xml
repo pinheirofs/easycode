@@ -6,4 +6,28 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>easycode-source-generator</artifactId>
+  
+  <build>
+    <plugins>
+       <plugin>
+         <groupId>org.codehaus.mojo</groupId>
+         <artifactId>jaxb2-maven-plugin</artifactId>
+         <executions>
+            <execution>
+               <id>xjc</id>
+               <goals>
+                 <goal>xjc</goal>
+               </goals>
+            </execution>
+         </executions>
+         <configuration>
+           <sources>
+             <source>src/main/resources/maven-4.0.0.xsd</source>
+           </sources>
+           <packageName>com.s2.easycode.sourcegenerator.maven.v400.xjc</packageName>
+           <addGeneratedAnnotation>false</addGeneratedAnnotation>
+         </configuration>
+       </plugin>
+    </plugins>
+  </build>
 </project>
