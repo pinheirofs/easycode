@@ -7,9 +7,11 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,8 +20,10 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableColumn;
 
 import com.s2.easycode.Translate;
+import com.s2.easycode.sourcegenerator.AttributeType;
 
 public class MainFrameSwing extends JFrame implements MainFrame {
 
@@ -52,10 +56,18 @@ public class MainFrameSwing extends JFrame implements MainFrame {
         projectGroupTextField = new JTextField();
         projectPathTextField = new JTextField();
         classNameTextField = new JTextField();
+
+        final JComboBox<String> typeComboBox = new JComboBox<>();
+        for (final AttributeType attributeType : AttributeType.values()) {
+            typeComboBox.addItem(attributeType.getJavaType());
+        }
         attributeTableMode = new AttributeTableModel();
         atttributeTable = new JTable(attributeTableMode);
         atttributeTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        final TableColumn typeColumn = atttributeTable.getColumnModel().getColumn(1);
+        typeColumn.setCellEditor(new DefaultCellEditor(typeComboBox));
         final JScrollPane scrollPane = new JScrollPane(atttributeTable);
+
         final JButton addAttributeButton = new JButton(translate.tr("MainFrameSwing.attribute.button.add"));
         addAttributeButton.addActionListener(new ActionListener() {
 
