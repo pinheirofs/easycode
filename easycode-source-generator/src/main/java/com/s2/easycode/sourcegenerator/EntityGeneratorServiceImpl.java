@@ -46,7 +46,7 @@ public class EntityGeneratorServiceImpl implements EntityGeneratorService {
         }
         writer.write("\n");
 
-        writer.write("    public TestClass() {\n");
+        writer.write("    public " + entityName + "() {\n");
         writer.write("    }\n");
         writer.write("\n");
 
