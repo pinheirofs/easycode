@@ -1,15 +1,17 @@
 package com.s2.easycode.sourcegenerator;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.s2.easycode.sourcegenerator.maven.v400.xjc.Model;
 
 public class ProjectGeneratorServiceImplTest {
 
@@ -45,7 +47,7 @@ public class ProjectGeneratorServiceImplTest {
     }
 
     @Test
-    public void generateOk() throws IOException {
+    public void generateOk() throws Exception {
         final ProjectDescription projectDescription = new ProjectDescription();
         projectDescription.setName(DEFAULT_PROJECT_NAME);
         projectDescription.setGroup(DEFAULT_PROJECT_GROUP);
@@ -66,27 +68,16 @@ public class ProjectGeneratorServiceImplTest {
         Assert.assertTrue(pomFile.exists());
         Assert.assertTrue(pomFile.isFile());
 
-        final InputStream pomStream = new FileInputStream(pomFile);
-        final InputStreamReader pomStreamReader = new InputStreamReader(pomStream);
-        final BufferedReader pomReader = new BufferedReader(pomStreamReader);
+        // Ler o arquivo
+        final JAXBContext jaxbContext = JAXBContext.newInstance("com.s2.easycode.sourcegenerator.maven.v400.xjc");
+        final Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
+        final StreamSource source = new StreamSource(pomFile);
+        final JAXBElement<Model> element = unmarshaller.unmarshal(source, Model.class);
+        final Model model = element.getValue();
 
-        final InputStream examplePomStream = ProjectGeneratorServiceImplTest.class
-                .getResourceAsStream("./pom.example.xml");
-        final InputStreamReader examplePomStreamReader = new InputStreamReader(examplePomStream);
-        final BufferedReader examplePomReader = new BufferedReader(examplePomStreamReader);
-
-        String line;
-        String lineExample;
-        do {
-            line = pomReader.readLine();
-            lineExample = examplePomReader.readLine();
-            if (line != null && lineExample != null) {
-                Assert.assertEquals(lineExample, line);
-            }
-        } while (line != null && lineExample != null);
-
-        examplePomReader.close();
-        pomReader.close();
+        // Testar o arquivo
+        Assert.assertEquals(DEFAULT_PROJECT_NAME, model.getArtifactId());
+        Assert.assertEquals(DEFAULT_PROJECT_GROUP, model.getGroupId());
 
         // Verificar a criacao do subdiretorio src/main/java
         final File srcMainJavaDirectory = new File(projectFilepath + File.separator + SRC_MAIN_JAVA_DIRECTORY);

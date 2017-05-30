@@ -92,7 +92,7 @@ public class MainFrameCtrl {
         projectGeneratorService.setProjectDescription(projectDescription);
         try {
             projectGeneratorService.generate();
-        } catch (final IOException e) {
+        } catch (final Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

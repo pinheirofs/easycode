@@ -21,11 +21,11 @@
             </execution>
          </executions>
          <configuration>
+           <target>2.2</target>
            <sources>
              <source>src/main/resources/maven-4.0.0.xsd</source>
            </sources>
            <packageName>com.s2.easycode.sourcegenerator.maven.v400.xjc</packageName>
-           <addGeneratedAnnotation>false</addGeneratedAnnotation>
          </configuration>
        </plugin>
     </plugins>
