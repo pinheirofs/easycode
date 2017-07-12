@@ -1,5 +1,7 @@
 package com.s2.easycode.sourcegenerator;
 
+import org.eclipse.jdt.core.dom.PrimitiveType;
+
 public enum AttributeType {
     INTEGER, LONG, FLOAT, DOUBLE, CHARACTER, STRING, BOOLEAN;
 
@@ -54,5 +56,55 @@ public enum AttributeType {
         }
 
         return javaType;
+    }
+
+    public PrimitiveType.Code getJdtPrimitiveType() {
+        PrimitiveType.Code type;
+
+        switch (this) {
+        case BOOLEAN:
+            type = PrimitiveType.BOOLEAN;
+            break;
+        case CHARACTER:
+            type = PrimitiveType.CHAR;
+            break;
+        case DOUBLE:
+            type = PrimitiveType.DOUBLE;
+            break;
+        case FLOAT:
+            type = PrimitiveType.FLOAT;
+            break;
+        case INTEGER:
+            type = PrimitiveType.INT;
+            break;
+        case LONG:
+            type = PrimitiveType.LONG;
+            break;
+        default:
+            throw new SourceGeneratorException("Invalid primitive type");
+        }
+
+        return type;
+    }
+
+    public boolean isPrimitiveType() {
+        boolean primitiveType;
+
+        switch (this) {
+        case BOOLEAN:
+        case CHARACTER:
+        case DOUBLE:
+        case FLOAT:
+        case INTEGER:
+        case LONG:
+            primitiveType = true;
+            break;
+
+        default:
+            primitiveType = false;
+            break;
+        }
+
+        return primitiveType;
     }
 }

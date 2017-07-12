@@ -23,6 +23,7 @@
   	<module>easycode-ctrl</module>
   	<module>easycode-ui-swing</module>
   	<module>easycode-source-generator</module>
+  	<module>easycode-config</module>
   </modules>
   <dependencies>
   	<dependency>

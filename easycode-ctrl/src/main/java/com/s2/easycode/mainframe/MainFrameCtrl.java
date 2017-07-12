@@ -2,6 +2,9 @@ package com.s2.easycode.mainframe;
 
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.s2.easycode.UiFactoryAbstract;
 import com.s2.easycode.sourcegenerator.AttributeType;
 import com.s2.easycode.sourcegenerator.EntityDescription;
@@ -30,12 +33,20 @@ public class MainFrameCtrl {
     }
 
     public void showMainFrame() {
+        final Logger logger = LoggerFactory.getLogger(MainFrameCtrl.class);
+        logger.info("Requested to show main frame");
+
         final UiFactoryAbstract factory = UiFactoryAbstract.getInstance();
         mainFrame = factory.createMainFrame(this);
         mainFrame.showFrame();
+
+        logger.info("Main frame exhibited");
     }
 
     public void createEntity() {
+        final Logger logger = LoggerFactory.getLogger(MainFrameCtrl.class);
+        logger.info("Requested to create a entity");
+
         final String projectName = mainFrame.getProjectName();
         final String projectGroup = mainFrame.getProjectGroup();
         final String projectPath = mainFrame.getProjectPath();
@@ -45,6 +56,8 @@ public class MainFrameCtrl {
         projectDescription.setPath(projectPath);
         if (!projectValidatorService.validate(projectDescription)) {
             for (final ErrorType error : projectValidatorService.getErrors()) {
+                logger.warn("Warning while a entity was validated: " + error.toString());
+
                 switch (error) {
                 case PROJECT_NAME_ERROR:
                     mainFrame.showProjectNameErrorMsg();
@@ -71,6 +84,8 @@ public class MainFrameCtrl {
 
         if (!entityValidatorService.validate(entityDescription)) {
             for (final ErrorType error : entityValidatorService.getErrors()) {
+                logger.warn("Warning while a entity was validated: " + error.toString());
+
                 switch (error) {
                 case ENTITY_CLASS_NAME_ERROR:
                     mainFrame.showEntityClassNameErrorMsg();
@@ -93,8 +108,8 @@ public class MainFrameCtrl {
         try {
             projectGeneratorService.generate();
         } catch (final Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("Error while try generate project", e);
+            return;
         }
 
         entityGeneratorService.setProjectDescription(projectDescription);
@@ -102,8 +117,8 @@ public class MainFrameCtrl {
         try {
             entityGeneratorService.generate();
         } catch (final IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            logger.error("Error while try generate entity", e);
+            return;
         }
     }
 }

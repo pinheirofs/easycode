@@ -222,6 +222,10 @@ public class MainFrameSwing extends JFrame implements MainFrame {
 
         @Override
         public void setValueAt(final Object aValue, final int rowIndex, final int columnIndex) {
+            if (aValue == null) {
+                return;
+            }
+
             final String[] line = values.get(rowIndex);
             line[columnIndex] = aValue.toString();
 

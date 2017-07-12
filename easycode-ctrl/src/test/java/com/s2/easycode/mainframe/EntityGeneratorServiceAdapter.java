@@ -16,8 +16,6 @@ public class EntityGeneratorServiceAdapter implements EntityGeneratorService {
 
     @Override
     public void setProjectDescription(final ProjectDescription projectDescription) {
-        // TODO Auto-generated method stub
-
     }
 
 }

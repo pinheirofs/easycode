@@ -25,17 +25,15 @@ public class EntityValidatorServiceImpl implements EntityValidatorService {
             final String attributeName = attribute.getName();
             if (attributeName == null || attributeName.isEmpty()) {
                 errors.add(ErrorType.ENTITY_ATTRIBUTE_NAME_ERROR);
-                return false;
             }
 
             final AttributeType type = attribute.getType();
             if (type == null) {
                 errors.add(ErrorType.ENTITY_ATTRIBUTE_TYPE_ERROR);
-                return false;
             }
         }
 
-        return true;
+        return errors.isEmpty();
     }
 
     @Override
