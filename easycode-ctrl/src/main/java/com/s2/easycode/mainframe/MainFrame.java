@@ -12,6 +12,8 @@ public interface MainFrame {
 
     String getProjectPath();
 
+    String getEntityPackage();
+
     String getEntityName();
 
     List<String[]> getAttributes();

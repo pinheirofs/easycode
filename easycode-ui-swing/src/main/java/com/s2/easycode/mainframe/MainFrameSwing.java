@@ -33,6 +33,7 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     private JTextField projectNameTextField;
     private JTextField projectGroupTextField;
     private JTextField projectPathTextField;
+    private JTextField classPackageTextField;
     private JTextField classNameTextField;
     private AttributeTableModel attributeTableMode;
     private final MainFrameCtrl mainFrameCtrl;
@@ -45,16 +46,17 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     }
 
     private void buildLayout() {
-
         final Translate translate = Translate.getInstance();
         final JLabel projectNameLabel = new JLabel(translate.tr("MainFrameSwing.project.name.label"));
         final JLabel projectGroupLabel = new JLabel(translate.tr("MainFrameSwing.project.group.label"));
         final JLabel projectPathLabel = new JLabel(translate.tr("MainFrameSwing.path.label"));
-        final JLabel classLabel = new JLabel(translate.tr("MainFrameSwing.class.label"));
+        final JLabel classPackageLabel = new JLabel(translate.tr("MainFrameSwing.package.label"));
+        final JLabel classNameLabel = new JLabel(translate.tr("MainFrameSwing.class.label"));
         final JLabel attributeLabel = new JLabel(translate.tr("MainFrameSwing.attribute.label"));
         projectNameTextField = new JTextField();
         projectGroupTextField = new JTextField();
         projectPathTextField = new JTextField();
+        classPackageTextField = new JTextField();
         classNameTextField = new JTextField();
 
         final JComboBox<String> typeComboBox = new JComboBox<>();
@@ -105,12 +107,14 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                                         .addComponent(projectNameLabel) //
                                         .addComponent(projectGroupLabel) //
                                         .addComponent(projectPathLabel) //
-                                        .addComponent(classLabel) //
+                                        .addComponent(classPackageLabel) //
+                                        .addComponent(classNameLabel) //
                                         .addComponent(attributeLabel)) //
                                 .addGroup(layout.createParallelGroup() //
                                         .addComponent(projectNameTextField) //
                                         .addComponent(projectGroupTextField) //
                                         .addComponent(projectPathTextField) //
+                                        .addComponent(classPackageTextField) //
                                         .addComponent(classNameTextField))) //
                         .addGroup(layout.createSequentialGroup() //
                                 .addComponent(scrollPane) //
@@ -133,7 +137,10 @@ public class MainFrameSwing extends JFrame implements MainFrame {
                                 .addComponent(projectPathLabel) //
                                 .addComponent(projectPathTextField)) //
                         .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
-                                .addComponent(classLabel) //
+                                .addComponent(classPackageLabel) //
+                                .addComponent(classPackageTextField))
+                        .addGroup(layout.createParallelGroup(Alignment.BASELINE) //
+                                .addComponent(classNameLabel) //
                                 .addComponent(classNameTextField)) //
                         .addComponent(attributeLabel) //
                         .addGroup(layout.createParallelGroup() //
@@ -245,6 +252,11 @@ public class MainFrameSwing extends JFrame implements MainFrame {
     @Override
     public String getProjectGroup() {
         return projectGroupTextField.getText();
+    }
+
+    @Override
+    public String getEntityPackage() {
+        return classPackageTextField.getText();
     }
 
     @Override

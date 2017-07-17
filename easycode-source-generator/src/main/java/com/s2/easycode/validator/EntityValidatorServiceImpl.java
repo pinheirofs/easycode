@@ -10,6 +10,7 @@ import com.s2.easycode.sourcegenerator.EntityDescription;
 
 public class EntityValidatorServiceImpl implements EntityValidatorService {
 
+    private static final String PACKAGE_NAME_REGEX = "([a-zA-Z_]+(\\.[a-zA-Z_0-9]+)*)?";
     private final List<ErrorType> errors = new LinkedList<>();
 
     @Override
@@ -17,7 +18,11 @@ public class EntityValidatorServiceImpl implements EntityValidatorService {
         final String entityName = entityDescription.getName();
         if (entityName == null || entityName.isEmpty()) {
             errors.add(ErrorType.ENTITY_CLASS_NAME_ERROR);
-            return false;
+        }
+
+        final String entityPackage = entityDescription.getEntityPackage();
+        if (entityPackage == null || !entityPackage.matches(PACKAGE_NAME_REGEX)) {
+            errors.add(ErrorType.ENTITY_PACKAGE_NAME_ERROR);
         }
 
         final List<AttributeDescription> attributes = entityDescription.getAttributes();

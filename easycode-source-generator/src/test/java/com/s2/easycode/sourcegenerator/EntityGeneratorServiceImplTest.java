@@ -17,6 +17,7 @@ public class EntityGeneratorServiceImplTest {
     private static final String TEST_CLASS_NAME = "TestClass";
     private static final String PROJECT_PATH = "/tmp/";
     private static final String PROJECT_NAME = "project";
+    private static final String TEST_PACKAGET_NAME = "br.com.test";
 
     @Before
     public void prepareTestExecution() throws InterruptedException {
@@ -52,6 +53,7 @@ public class EntityGeneratorServiceImplTest {
         projectDescription.setPath(PROJECT_PATH);
 
         final EntityDescription entityDescription = new EntityDescription();
+        entityDescription.setPackage(TEST_PACKAGET_NAME);
         entityDescription.setName(TEST_CLASS_NAME);
         entityDescription.addAttrubute(ATTRIBUTE_NAME, AttributeType.INTEGER);
 
@@ -59,8 +61,17 @@ public class EntityGeneratorServiceImplTest {
         service.setEntityDescription(entityDescription);
         service.generate();
 
-        final File testClassFile = new File(
-                PROJECT_PATH + PROJECT_NAME + File.separator + SRC_MAIN_JAVA + TEST_CLASS_NAME + FILE_EXTECION);
+        final StringBuilder builder = new StringBuilder();
+        builder.append(PROJECT_PATH);
+        builder.append(PROJECT_NAME);
+        builder.append(File.separator);
+        builder.append(SRC_MAIN_JAVA);
+        builder.append(TEST_PACKAGET_NAME.replace('.', File.separatorChar));
+        builder.append(File.separator);
+        builder.append(TEST_CLASS_NAME);
+        builder.append(FILE_EXTECION);
+
+        final File testClassFile = new File(builder.toString());
         Assert.assertTrue(testClassFile.exists());
         Assert.assertTrue(testClassFile.isFile());
 
@@ -68,49 +79,31 @@ public class EntityGeneratorServiceImplTest {
         final InputStreamReader reader = new InputStreamReader(stream);
         final BufferedReader bufferedReader = new BufferedReader(reader);
         String line = bufferedReader.readLine();
+        Assert.assertEquals("package br.com.test;", line);
+
+        line = bufferedReader.readLine();
         Assert.assertEquals("public class TestClass {", line);
 
         line = bufferedReader.readLine();
-        Assert.assertEquals("", line);
+        Assert.assertEquals("  private int attribute;", line);
 
         line = bufferedReader.readLine();
-        Assert.assertEquals("    private java.lang.Integer attribute;", line);
+        Assert.assertEquals("  public int getAttribute(){", line);
 
         line = bufferedReader.readLine();
-        Assert.assertEquals("", line);
+        Assert.assertEquals("    return attribute;", line);
 
         line = bufferedReader.readLine();
-        Assert.assertEquals("    public TestClass() {", line);
+        Assert.assertEquals("  }", line);
 
         line = bufferedReader.readLine();
-        Assert.assertEquals("    }", line);
+        Assert.assertEquals("  public void setAttribute(  final int attribute){", line);
 
         line = bufferedReader.readLine();
-        Assert.assertEquals("", line);
+        Assert.assertEquals("    this.attribute=attribute;", line);
 
         line = bufferedReader.readLine();
-        Assert.assertEquals("    public java.lang.Integer getAttribute() {", line);
-
-        line = bufferedReader.readLine();
-        Assert.assertEquals("        return attribute;", line);
-
-        line = bufferedReader.readLine();
-        Assert.assertEquals("    }", line);
-
-        line = bufferedReader.readLine();
-        Assert.assertEquals("", line);
-
-        line = bufferedReader.readLine();
-        Assert.assertEquals("    public void setAttribute(final java.lang.Integer attribute) {", line);
-
-        line = bufferedReader.readLine();
-        Assert.assertEquals("        this.attribute = attribute;", line);
-
-        line = bufferedReader.readLine();
-        Assert.assertEquals("    }", line);
-
-        line = bufferedReader.readLine();
-        Assert.assertEquals("", line);
+        Assert.assertEquals("  }", line);
 
         line = bufferedReader.readLine();
         Assert.assertEquals("}", line);

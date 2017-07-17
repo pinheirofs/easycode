@@ -77,6 +77,7 @@ public class MainFrameCtrl {
         }
 
         final EntityDescription entityDescription = new EntityDescription();
+        entityDescription.setPackage(mainFrame.getEntityPackage());
         entityDescription.setName(mainFrame.getEntityName());
         for (final String[] attribue : mainFrame.getAttributes()) {
             entityDescription.addAttrubute(attribue[0], AttributeType.convert(attribue[1]));

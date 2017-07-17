@@ -7,6 +7,7 @@ public class EntityDescription {
 
     private final List<AttributeDescription> attributeDescriptions;
     private String name;
+    private String entityPackage;
 
     public EntityDescription() {
         attributeDescriptions = new ArrayList<>();
@@ -30,6 +31,14 @@ public class EntityDescription {
 
     public List<AttributeDescription> getAttributes() {
         return new ArrayList<>(attributeDescriptions);
+    }
+
+    public String getEntityPackage() {
+        return entityPackage;
+    }
+
+    public void setPackage(final String entityPackage) {
+        this.entityPackage = entityPackage;
     }
 
 }

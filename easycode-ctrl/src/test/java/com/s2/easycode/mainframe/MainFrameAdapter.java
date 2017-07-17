@@ -30,6 +30,11 @@ public class MainFrameAdapter implements MainFrame {
     }
 
     @Override
+    public String getEntityPackage() {
+        return "";
+    }
+
+    @Override
     public List<String[]> getAttributes() {
         return Collections.emptyList();
     }

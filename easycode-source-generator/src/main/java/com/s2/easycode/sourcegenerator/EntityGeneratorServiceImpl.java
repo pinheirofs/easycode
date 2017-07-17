@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.dom.FieldAccess;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier.ModifierKeyword;
+import org.eclipse.jdt.core.dom.PackageDeclaration;
 import org.eclipse.jdt.core.dom.PrimitiveType;
 import org.eclipse.jdt.core.dom.ReturnStatement;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
@@ -28,7 +29,7 @@ public class EntityGeneratorServiceImpl implements EntityGeneratorService {
 
     private static final String JAVA_SOURCE_FILE_EXTESION = ".java";
 
-    private static final String SOURCE_DIRECTORY = "src/main/java/";
+    private static final String SOURCE_DIRECTORY = "src.main.java.";
 
     private ProjectDescription projectDescription;
     private EntityDescription entityDescription;
@@ -53,10 +54,22 @@ public class EntityGeneratorServiceImpl implements EntityGeneratorService {
 
         ast = AST.newAST(AST.JLS8);
 
+        final String packateText = createPackage();
+        writer.write(packateText);
+
         final String entityText = createEntity();
         writer.write(entityText);
 
         writer.close();
+    }
+
+    private String createPackage() {
+        final String entityPackage = entityDescription.getEntityPackage();
+
+        final PackageDeclaration packageDeclaration = ast.newPackageDeclaration();
+        packageDeclaration.setName(ast.newName(entityPackage));
+
+        return packageDeclaration.toString();
     }
 
     String createEntity() {
@@ -215,6 +228,14 @@ public class EntityGeneratorServiceImpl implements EntityGeneratorService {
     }
 
     private File createSourceFile() throws IOException {
+        final String directoryPath = assemblySourceDirectoryPath();
+        final File sourceDirectory = new File(directoryPath);
+        if (!sourceDirectory.exists()) {
+            sourceDirectory.mkdirs();
+        }
+
+        // TODO If exist a file at directory place, give some answer
+
         final String sourceFilepath = assemblySourceFilepath();
         final File sourceFile = new File(sourceFilepath);
         sourceFile.createNewFile();
@@ -223,17 +244,32 @@ public class EntityGeneratorServiceImpl implements EntityGeneratorService {
     }
 
     private String assemblySourceFilepath() {
+        final String directoryPath = assemblySourceDirectoryPath();
+
+        final StringBuilder builder = new StringBuilder(directoryPath);
+        builder.append(entityDescription.getName());
+        builder.append(JAVA_SOURCE_FILE_EXTESION);
+
+        return builder.toString();
+    }
+
+    private String assemblySourceDirectoryPath() {
         String projectPath = projectDescription.getPath();
         if (!projectPath.endsWith(File.separator)) {
             projectPath += File.separator;
         }
         final String projectName = projectDescription.getName();
 
-        final String projectDirectory = projectPath + projectName + File.separator;
-        final String sourceDirectory = projectDirectory + SOURCE_DIRECTORY;
-        final String sourceFilepath = sourceDirectory + entityDescription.getName() + JAVA_SOURCE_FILE_EXTESION;
+        final StringBuilder builder = new StringBuilder();
+        builder.append(projectPath);
+        builder.append(projectName);
+        builder.append(File.separator);
+        builder.append(SOURCE_DIRECTORY.replace('.', File.separatorChar));
+        final String entityPackage = entityDescription.getEntityPackage();
+        builder.append(entityPackage.replace('.', File.separatorChar));
+        builder.append(File.separatorChar);
 
-        return sourceFilepath;
+        return builder.toString();
     }
 
 }

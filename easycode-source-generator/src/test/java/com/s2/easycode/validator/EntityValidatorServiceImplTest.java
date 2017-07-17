@@ -14,6 +14,7 @@ public class EntityValidatorServiceImplTest {
     public void validateEntityOk() {
         final EntityDescription entityDescription = new EntityDescription();
         entityDescription.setName("Entity");
+        entityDescription.setPackage("br.com.test");
         entityDescription.addAttrubute("Attribute", AttributeType.INTEGER);
 
         final EntityValidatorService service = new EntityValidatorServiceImpl();
@@ -22,6 +23,35 @@ public class EntityValidatorServiceImplTest {
 
         final List<ErrorType> errors = service.getErrors();
         Assert.assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    public void validateEntityEmptyPackage() {
+        final EntityDescription entityDescription = new EntityDescription();
+        entityDescription.setName("Entity");
+        entityDescription.setPackage("");
+        entityDescription.addAttrubute("Attribute", AttributeType.INTEGER);
+
+        final EntityValidatorService service = new EntityValidatorServiceImpl();
+        final boolean validate = service.validate(entityDescription);
+        Assert.assertTrue(validate);
+
+        final List<ErrorType> errors = service.getErrors();
+        Assert.assertTrue(errors.isEmpty());
+    }
+
+    @Test
+    public void validateEntityNullPackage() {
+        final EntityDescription entityDescription = new EntityDescription();
+        entityDescription.setName("Entity");
+        entityDescription.addAttrubute("Attribute", AttributeType.INTEGER);
+
+        final EntityValidatorService service = new EntityValidatorServiceImpl();
+        final boolean validate = service.validate(entityDescription);
+        Assert.assertFalse(validate);
+
+        final List<ErrorType> errors = service.getErrors();
+        Assert.assertTrue(errors.contains(ErrorType.ENTITY_PACKAGE_NAME_ERROR));
     }
 
     @Test
