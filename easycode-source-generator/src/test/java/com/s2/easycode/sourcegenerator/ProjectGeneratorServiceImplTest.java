@@ -78,6 +78,7 @@ public class ProjectGeneratorServiceImplTest {
         // Testar o arquivo
         Assert.assertEquals(DEFAULT_PROJECT_NAME, model.getArtifactId());
         Assert.assertEquals(DEFAULT_PROJECT_GROUP, model.getGroupId());
+        Assert.assertEquals("0.0.1", model.getVersion());
 
         // Verificar a criacao do subdiretorio src/main/java
         final File srcMainJavaDirectory = new File(projectFilepath + File.separator + SRC_MAIN_JAVA_DIRECTORY);

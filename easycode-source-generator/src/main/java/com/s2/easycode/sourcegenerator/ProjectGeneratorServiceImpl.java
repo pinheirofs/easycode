@@ -11,6 +11,8 @@ import com.s2.easycode.sourcegenerator.maven.v400.xjc.ObjectFactory;
 
 public class ProjectGeneratorServiceImpl implements ProjectGeneratorService {
 
+    private static final String PROJECT_VERSION = "0.0.1";
+    private static final String SCHEMA_LOCATION = "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd";
     private static final String POM_FILE_MODEL_VERSION = "0.0.1-SNAPSHOT";
     private static final String POM_FILE_PACKAGING_JAR = "jar";
     private static final String POM_FILE_XML = "pom.xml";
@@ -62,11 +64,11 @@ public class ProjectGeneratorServiceImpl implements ProjectGeneratorService {
         final Model model = factory.createModel();
         model.setArtifactId(projectDescription.getName());
         model.setGroupId(projectDescription.getGroup());
-
-        final JAXBElement<Model> project = factory.createProject(model);
-
         model.setModelVersion(POM_FILE_MODEL_VERSION);
         model.setPackaging(POM_FILE_PACKAGING_JAR);
+        model.setVersion(PROJECT_VERSION);
+
+        final JAXBElement<Model> project = factory.createProject(model);
 
         final String projectDirectory = assemblyProjectDirectory();
         final File pomFile = new File(projectDirectory + POM_FILE_XML);
@@ -75,6 +77,7 @@ public class ProjectGeneratorServiceImpl implements ProjectGeneratorService {
         final JAXBContext jaxbContext = JAXBContext.newInstance("com.s2.easycode.sourcegenerator.maven.v400.xjc");
         final Marshaller marshaller = jaxbContext.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.setProperty(Marshaller.JAXB_SCHEMA_LOCATION, SCHEMA_LOCATION);
         marshaller.marshal(project, pomFile);
     }
 
